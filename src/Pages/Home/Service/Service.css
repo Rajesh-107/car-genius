@@ -1,0 +1,12 @@
+div img {
+    width: 400px;
+    height: 300px;
+    border-radius: 7px;
+}
+
+.service {
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
