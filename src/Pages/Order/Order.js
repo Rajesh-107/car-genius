@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+
 import {useAuthState} from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
+import axiosPrivate from '../../api/axiosPrivate';
 
 const Order = () => {
     const [user] = useAuthState(auth);
@@ -12,14 +13,10 @@ const Order = () => {
 
     useEffect( ()=> {
         const getOrders = async() =>{
-            const email = user.email;
-            const url = `http://localhost:5000/order?email=${email}`;
+            const email = user?.email;
+            const url = `https://peaceful-tor-59342.herokuapp.com/order?email=${email}`;
            try{
-            const {data} = await axios.get(url, {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            });
+            const {data} = await axiosPrivate.get(url);
             setOrders(data);
            }
            catch(error){
@@ -34,8 +31,13 @@ const Order = () => {
        
     } , [])
     return (
-        <div>
+        <div className='w-50 mx-auto'>
             <h2>All orders list: {orders.length} </h2>
+            {
+                orders.map(order => <div key={order._id}>
+                    <p> {order.email} : {order.service} </p>
+                </div>)
+            }
         </div>
     );
 };

@@ -28,7 +28,7 @@ const CheckOut = () => {
             address: e.target.address.value,
             phone:e.target.phone.value
         }
-       axios.post('http://localhost:5000/order', order)
+       axios.post('https://peaceful-tor-59342.herokuapp.com/order', order)
        .then(res => {
            const {data} = res;
            if(data.insertedId){
